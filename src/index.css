@@ -1,13 +1,277 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root {
+  --red: #eb0028;
+  --yellow: #febf00;
+  --green: #26a65b;
+  --white: #ffffff;
+  --darkgrey: #252323;
+  --black: #121212;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: Inter;
+  font-weight: 700;
+  color: var(--white);
+  background: var(--black);
+}
+
+* {
+  box-sizing: border-box;
+  font-family: Inter;
+}
+
+#timer {
+  height: 100vh;
+  width: 100vw;
+  max-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: clamp(16px, 2vh, 96px) 4vw;
+  gap: 4vh;
+}
+
+header {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: clamp(12px, 1vw, 512px);
+}
+
+header #logo {
+  height: clamp(48px, 4vw, 128px);
+}
+
+header h1 {
+  font-size: clamp(20px, 3vw, 64px);
+  margin: 0;
+}
+
+header #help-button {
+  margin-left: auto;
+  width: clamp(48px, 4vw, 512px);
+  height: clamp(48px, 4vw, 512px);
+  background: none;
+  border: none;
+  padding: none;
+  cursor: pointer;
+  opacity: 0.64;
+  transition: opacity 0.2s ease;
+  outline: none;
+}
+
+header #help-button:hover,
+header #help-button:focus {
+  opacity: 1;
+}
+
+header #help-button img {
+  width: 100%;
+}
+
+#modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: clamp(16px, 2vh, 96px) 4vw;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 10;
+}
+
+#modal {
+  width: 100%;
+  max-width: clamp(600px, 64vw, 1000px);
+  max-height: 100%;
+  overflow-y: auto;
+  background: var(--darkgrey);
+  border-radius: 1vw;
+  padding: clamp(16px, 2vh, 96px) 2vw;
+}
+
+#modal-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+#close-modal-button {
+  width: clamp(48px, 4vw, 96px);
+  height: clamp(48px, 4vw, 96px);
+  background: none;
+  border: none;
+  padding: none;
+  cursor: pointer;
+  outline: none;
+  margin-left: auto;
+}
+
+#close-modal-button img {
+  width: 100%;
+}
+
+#modal h4 {
+  font-size: clamp(16px, 1.5vw, 48px);
+  font-weight: 700;
+  margin: 24px 0 8px 0;
+}
+
+#modal p {
+  font-size: clamp(12px, 1vw, 32px);
+  font-weight: 400;
+  margin-top: 0;
+  line-height: 1.6;
+}
+
+#modal a {
+  color: var(--white);
+}
+
+#time-inputs-wrapper {
+  text-align: center;
+  font-size: 192px;
+  margin: 0;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4vw;
+  width: 100%;
+}
+
+.time-input-group {
+  width: 100%;
+  background: var(--darkgrey);
+  padding: 2vh 2vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 1vw;
+}
+
+.time-input-group input {
+  width: 100%;
+  border: none;
+  color: var(--white);
+  background: transparent;
+  font-family: Inter;
+  font-weight: 700;
+  font-size: 22vw;
+  text-align: left;
+  outline: none;
+}
+
+.time-input-button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4vw;
+  width: auto;
+  flex-shrink: 1;
+}
+
+.time-input-button-group button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: clamp(24px, 4vw, 256px);
+  width: clamp(24px, 4vw, 256px);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  opacity: 0.64;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.time-input-button-group button:hover,
+.time-input-button-group button:focus {
+  opacity: 1;
+}
+
+.time-input-button-group button img {
+  width: 100%;
+}
+
+#time-divider {
+  height: 12vw;
+}
+
+#time-display {
+  width: 100%;
+  text-align: center;
+  font-size: 30vw;
+  margin: 0;
+  flex-grow: 1;
+  flex-shrink: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--white);
+}
+
+#progress-bar {
+  width: 100%;
+  height: 3vh;
+  border-radius: 32px;
+  background: var(--darkgrey);
+  overflow: hidden;
+}
+
+#progress-bar-elapsed {
+  height: 100%;
+  border-radius: 32px;
+  transition: width 1s linear;
+}
+
+#buttons-container {
+  display: flex;
+  gap: 32px;
+}
+
+#back-button,
+#play-pause-button {
+  height: clamp(96px, 12vw, 192px);
+  width: clamp(96px, 12vw, 192px);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: var(--darkgrey);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+button img {
+  width: 50%;
+  color: var(--white);
+}
+
+/* Remove arrows from number inputs */
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }
