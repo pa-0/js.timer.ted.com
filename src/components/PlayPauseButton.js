@@ -13,7 +13,7 @@ export default function PlayPauseButton({ disabled, timerIsRunning, onClick }) {
       <img
         src={timerIsRunning ? PauseIcon : PlayIcon}
         alt={timerIsRunning ? "Pause" : "Resume"}
-        style={timerIsRunning ? null : { marginLeft: 12 }}
+        style={timerIsRunning ? null : { marginLeft: "8%" }}
       />
     </button>
   )

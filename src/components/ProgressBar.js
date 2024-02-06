@@ -4,7 +4,12 @@ export default function ProgressBar({
   timeDisplayColor
 }) {
   return (
-    <div id="progress-bar">
+    <div
+      id="progress-bar"
+      style={{
+        background: timeDisplayColor + "44"
+      }}
+    >
       <div
         id="progress-bar-elapsed"
         style={{

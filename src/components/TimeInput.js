@@ -1,3 +1,4 @@
+import { MAX_NUM_MINUTES } from "../helpers/constants"
 import DownIcon from "../ui_icons/chevron-down.svg"
 import UpIcon from "../ui_icons/chevron-up.svg"
 import ColonIcon from "../ui_icons/colon.svg"
@@ -9,20 +10,22 @@ export default function TimeInput({
   setSecondsInput
 }) {
   function handleMinutesInput(value) {
-    setMinutesInput(cleanInput(Math.max(0, Math.min(90, value))))
+    setMinutesInput(cleanInput(Math.max(0, Math.min(MAX_NUM_MINUTES, value))))
   }
 
   function handleSecondsInput(value) {
     if (value >= 60) {
-      // if seconds increments to 60, add a minute (up to max 90) and adjust the seconds
+      // if seconds increments to 60, add a minute (up to max MAX_NUM_MINUTES) and adjust the seconds
       setSecondsInput(cleanInput(value % 60))
-      setMinutesInput(cleanInput(Math.min(90, parseInt(minutesInput) + 1)))
+      setMinutesInput(
+        cleanInput(Math.min(MAX_NUM_MINUTES, parseInt(minutesInput) + 1))
+      )
     } else if (value < 0) {
       // if seconds decrements below 0, remove a minute (minimum 0) and adjust the seconds to 59
       setSecondsInput("59")
       setMinutesInput(cleanInput(Math.max(0, parseInt(minutesInput) - 1)))
-    } else if (minutesInput === "90") {
-      // hard limit of 90 minutes, prevent adding additional seconds beyond 90 min
+    } else if (minutesInput === MAX_NUM_MINUTES) {
+      // hard limit of MAX_NUM_MINUTES minutes, prevent adding additional seconds beyond MAX_NUM_MINUTES min
       return "00"
     } else {
       setSecondsInput(cleanInput(value))
@@ -50,10 +53,15 @@ export default function TimeInput({
           type="number"
           value={minutesInput}
           onChange={event => handleMinutesInput(event.target.value)}
+          style={
+            minutesInput.length > 2
+              ? { fontSize: "15vw", padding: "3.1vw 0" } // size down the font if a 3 digit number is entered
+              : null
+          }
         />
         <div className="time-input-button-group">
           <button
-            disabled={minutesInput === "90"}
+            disabled={minutesInput === MAX_NUM_MINUTES}
             onClick={() => handleMinutesInput(parseInt(minutesInput) + 1)}
           >
             <img src={UpIcon} alt="Add minute" />
@@ -75,7 +83,7 @@ export default function TimeInput({
         />
         <div className="time-input-button-group">
           <button
-            disabled={minutesInput === "90"}
+            disabled={minutesInput === MAX_NUM_MINUTES}
             onClick={() => handleSecondsInput(parseInt(secondsInput) + 1)}
           >
             <img src={UpIcon} alt="Add second" />

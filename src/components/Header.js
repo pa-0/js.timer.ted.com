@@ -30,7 +30,7 @@ export default function Header() {
         <h4>Use it</h4>
         <p>
           To start the Timer, select the duration of your talk (choose any
-          length up to 90 minutes). Next, press the play button to begin the
+          length up to 180 minutes). Next, press the play button to begin the
           countdown. You'll see your remaining time, as well as a progress bar
           indicating how much of your total time has elapsed. With one minute
           left, you'll see your remaining time turn yellow, and as you run out,

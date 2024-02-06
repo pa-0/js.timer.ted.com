@@ -129,7 +129,7 @@ const Timer = () => {
   return (
     <div id="timer">
       <Header />
-      {timerIsSet ? <TimeDisplayView /> : <TimeInputView />}
+      {timerIsSet ? TimeDisplayView() : TimeInputView()}
     </div>
   )
 }
