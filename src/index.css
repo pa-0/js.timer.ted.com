@@ -61,7 +61,7 @@ header h1 {
 
 #header-buttons {
   display: flex;
-  gap: 2vw;
+  gap: 1vw;
   align-items: center;
   justify-content: center;
   margin-left: auto;
@@ -69,8 +69,8 @@ header h1 {
 
 #header-buttons button {
   margin-left: auto;
-  width: clamp(48px, 3vw, 128px);
-  height: clamp(48px, 3vw, 128px);
+  width: clamp(32px, 2vw, 96px);
+  height: clamp(32px, 2vw, 96px);
   background: none;
   border: none;
   padding: none;
