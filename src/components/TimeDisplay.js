@@ -1,4 +1,8 @@
-export default function TimeDisplay({ remainingSeconds, timeDisplayColor }) {
+export default function TimeDisplay({
+  remainingSeconds,
+  timeDisplayColor,
+  alwaysShowSeconds
+}) {
   const hours =
     remainingSeconds > 0 ? Math.floor(remainingSeconds / 3600) : null
   if (hours) {
@@ -19,8 +23,7 @@ export default function TimeDisplay({ remainingSeconds, timeDisplayColor }) {
     (remainingSeconds < 0 ? "-" : "") +
     (hours ? hours + ":" : "") +
     minutes +
-    ":" +
-    seconds
+    (alwaysShowSeconds || remainingSeconds < 60 ? ":" + seconds : "")
 
   const fontSize = hours ? "clamp(16px, 22vw, 40vh)" : "clamp(16px, 30vw, 40vh)"
 

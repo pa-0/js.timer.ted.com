@@ -8,7 +8,7 @@ export default function PlayPauseButton({ disabled, timerIsRunning, onClick }) {
       id="play-pause-button"
       onClick={onClick}
       disabled={disabled}
-      style={{ background: timerIsRunning ? colors.darkgrey : colors.green }}
+      style={{ background: timerIsRunning ? colors.darkgrey : colors.success }}
     >
       <img
         src={timerIsRunning ? PauseIcon : PlayIcon}

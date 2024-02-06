@@ -7,6 +7,7 @@ import Header from "./components/Header"
 import ProgressBar from "./components/ProgressBar"
 import PlayPauseButton from "./components/PlayPauseButton"
 import BackButton from "./components/BackButton"
+import Settings from "./components/Settings"
 import { colors } from "./helpers/colors"
 import "./index.css"
 
@@ -18,6 +19,12 @@ const Timer = () => {
   const [totalSeconds, setTotalSeconds] = useState()
   // remainingSeconds (integer): the amount of time left of the original timer
   const [remainingSeconds, setRemainingSeconds] = useState()
+  // alwaysShowSeconds (boolean): if true, seconds will be shown the entire countdown,
+  // while if false, only during the last minute
+  const [alwaysShowSeconds, setAlwaysShowSeconds] = useState(true)
+  // alwaysShowSeconds (boolean): if true, seconds will be shown the entire countdown,
+  // while if false, only during the last minute
+  const [useAccessibleColors, setUseAccessibleColors] = useState(false)
   // minutesInput (string): the user input value for number of minutes
   const [minutesInput, setMinutesInput] = useState("18")
   // secondsInput (string): the user input value for number of seconds
@@ -72,10 +79,10 @@ const Timer = () => {
   // the display turns red indefinitely.
   const timeDisplayColor =
     remainingSeconds < 0
-      ? colors.red
+      ? colors.alert
       : remainingSeconds < 60
-      ? colors.yellow
-      : colors.green
+      ? colors.warning
+      : colors.success
 
   // timerIsRunning is a helpful boolean to represent whether the clock
   // is currently running (preventing the need to pass the whole
@@ -93,11 +100,13 @@ const Timer = () => {
       <TimeDisplay
         remainingSeconds={remainingSeconds}
         timeDisplayColor={timeDisplayColor}
+        alwaysShowSeconds={alwaysShowSeconds}
       />
       <ProgressBar
         remainingSeconds={remainingSeconds}
         totalSeconds={totalSeconds}
         timeDisplayColor={timeDisplayColor}
+        timerIsRunning={timerIsRunning}
       />
       <div id="buttons-container">
         <BackButton timerIsRunning={timerIsRunning} resetTimer={resetTimer} />
@@ -118,16 +127,27 @@ const Timer = () => {
         setMinutesInput={setMinutesInput}
         setSecondsInput={setSecondsInput}
       />
-      <PlayPauseButton
-        disabled={minutesInput === "00" && secondsInput === "00"}
-        interval={interval}
-        onClick={totalSeconds ? togglePlayPause : startTimer}
-      />
+      <div id="buttons-container">
+        <Settings
+          alwaysShowSeconds={alwaysShowSeconds}
+          setAlwaysShowSeconds={setAlwaysShowSeconds}
+          useAccessibleColors={useAccessibleColors}
+          setUseAccessibleColors={setUseAccessibleColors}
+        />
+        <PlayPauseButton
+          disabled={minutesInput === "00" && secondsInput === "00"}
+          interval={interval}
+          onClick={totalSeconds ? togglePlayPause : startTimer}
+        />
+      </div>
     </>
   )
 
   return (
-    <div id="timer">
+    <div
+      id="timer"
+      className={useAccessibleColors ? "accessible-colors" : null}
+    >
       <Header />
       {timerIsSet ? TimeDisplayView() : TimeInputView()}
     </div>

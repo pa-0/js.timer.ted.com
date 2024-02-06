@@ -4,14 +4,17 @@ import CloseIcon from "../ui_icons/close.svg"
 import HelpIcon from "../ui_icons/help.svg"
 
 export default function Header() {
-  const [showHelp, setShowHelp] = useState(false)
+  const [showHelpModal, setShowHelpModal] = useState(false)
 
-  const Help = () => (
-    <div id="modal-background" onClick={() => setShowHelp(false)}>
+  const HelpModal = () => (
+    <div id="modal-background" onClick={() => setShowHelpModal(false)}>
       <div id="modal" onClick={e => e.stopPropagation()}>
         <div id="modal-header">
           <img id="logo" src={Logo} alt="TED Logo" />
-          <button id="close-modal-button" onClick={() => setShowHelp(false)}>
+          <button
+            id="close-modal-button"
+            onClick={() => setShowHelpModal(false)}
+          >
             <img src={CloseIcon} alt="Close" />
           </button>
         </div>
@@ -49,10 +52,10 @@ export default function Header() {
   return (
     <header>
       <img id="logo" src={Logo} alt="TED Logo" />
-      <button id="help-button" onClick={() => setShowHelp(true)}>
+      <button id="help-button" onClick={() => setShowHelpModal(true)}>
         <img src={HelpIcon} alt="Help" />
       </button>
-      {showHelp ? <Help /> : null}
+      {showHelpModal ? <HelpModal /> : null}
     </header>
   )
 }
