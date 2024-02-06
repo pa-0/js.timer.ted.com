@@ -35,9 +35,11 @@ body {
 }
 
 #timer.accessible-colors {
-  --alert: #d96a04;
-  --warning: #2763ff;
-  --success: #26a65b;
+  /* Taken from the following article: https://uxdesign.cc/beautiful-accessible-traffic-light-colors-b2b14a102a38 */
+  /* These colors can be turned on using the "Use accessible colors" toggle in Settings */
+  --alert: #9f1f31;
+  --warning: #f5cd54;
+  --success: #829035;
 }
 
 header {
@@ -57,7 +59,15 @@ header h1 {
   margin: 0;
 }
 
-header #help-button {
+#header-buttons {
+  display: flex;
+  gap: 2vw;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+}
+
+#header-buttons button {
   margin-left: auto;
   width: clamp(48px, 3vw, 128px);
   height: clamp(48px, 3vw, 128px);
@@ -70,12 +80,12 @@ header #help-button {
   outline: none;
 }
 
-header #help-button:hover,
-header #help-button:focus {
+#header-buttons button:hover,
+#header-buttons button:focus {
   opacity: 1;
 }
 
-header #help-button img {
+#header-buttons button img {
   width: 100%;
 }
 

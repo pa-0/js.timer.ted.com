@@ -3,12 +3,7 @@ import { colors } from "../helpers/colors"
 import SettingsIcon from "../ui_icons/settings.svg"
 import CloseIcon from "../ui_icons/close.svg"
 
-export default function Settings({
-  alwaysShowSeconds,
-  setAlwaysShowSeconds,
-  useAccessibleColors,
-  setUseAccessibleColors
-}) {
+export default function Settings({ settings, setSettings }) {
   const [showSettingsModal, setShowSettingsModal] = useState(false)
 
   const SettingsModal = () => (
@@ -27,14 +22,24 @@ export default function Settings({
           label="Always show seconds"
           caption="Turn this on to always display both minutes and seconds remaining.
           We'll always show remaining seconds in the final minute."
-          isOn={alwaysShowSeconds}
-          onClick={() => setAlwaysShowSeconds(!alwaysShowSeconds)}
+          isOn={settings.alwaysShowSeconds}
+          onClick={() =>
+            setSettings({
+              ...settings,
+              alwaysShowSeconds: !settings.alwaysShowSeconds
+            })
+          }
         />
         <Toggle
           label="Use accessible colors"
-          caption="Turn this on to replace yellow with blue, and red with orange for better accessibility."
-          isOn={useAccessibleColors}
-          onClick={() => setUseAccessibleColors(!useAccessibleColors)}
+          caption="Turn this on to use alternate shades of red, yellow and green for better accessibility."
+          isOn={settings.useAccessibleColors}
+          onClick={() =>
+            setSettings({
+              ...settings,
+              useAccessibleColors: !settings.useAccessibleColors
+            })
+          }
         />
       </div>
     </div>

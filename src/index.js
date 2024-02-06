@@ -7,9 +7,9 @@ import Header from "./components/Header"
 import ProgressBar from "./components/ProgressBar"
 import PlayPauseButton from "./components/PlayPauseButton"
 import BackButton from "./components/BackButton"
-import Settings from "./components/Settings"
 import { colors } from "./helpers/colors"
 import "./index.css"
+import { DEFAULT_SETTINGS } from "./helpers/constants"
 
 const Timer = () => {
   // interval (window object): stores the instance of window.setInterval used
@@ -19,18 +19,13 @@ const Timer = () => {
   const [totalSeconds, setTotalSeconds] = useState()
   // remainingSeconds (integer): the amount of time left of the original timer
   const [remainingSeconds, setRemainingSeconds] = useState()
-  // alwaysShowSeconds (boolean): if true, seconds will be shown the entire countdown,
-  // while if false, only during the last minute
-  const [alwaysShowSeconds, setAlwaysShowSeconds] = useState(true)
-  // alwaysShowSeconds (boolean): if true, seconds will be shown the entire countdown,
-  // while if false, only during the last minute
-  const [useAccessibleColors, setUseAccessibleColors] = useState(false)
   // minutesInput (string): the user input value for number of minutes
   const [minutesInput, setMinutesInput] = useState("18")
   // secondsInput (string): the user input value for number of seconds
   const [secondsInput, setSecondsInput] = useState("00")
   // NOTE: input values are string not ints. This helps with formatting,
   // especially with leading 0s.
+  const [settings, setSettings] = useState(DEFAULT_SETTINGS)
 
   function initializeWindowInterval() {
     // create an interval that decrements remainingSeconds every 1000ms
@@ -100,7 +95,7 @@ const Timer = () => {
       <TimeDisplay
         remainingSeconds={remainingSeconds}
         timeDisplayColor={timeDisplayColor}
-        alwaysShowSeconds={alwaysShowSeconds}
+        alwaysShowSeconds={settings.alwaysShowSeconds}
       />
       <ProgressBar
         remainingSeconds={remainingSeconds}
@@ -128,15 +123,9 @@ const Timer = () => {
         setSecondsInput={setSecondsInput}
       />
       <div id="buttons-container">
-        <Settings
-          alwaysShowSeconds={alwaysShowSeconds}
-          setAlwaysShowSeconds={setAlwaysShowSeconds}
-          useAccessibleColors={useAccessibleColors}
-          setUseAccessibleColors={setUseAccessibleColors}
-        />
         <PlayPauseButton
           disabled={minutesInput === "00" && secondsInput === "00"}
-          interval={interval}
+          timerIsRunning={timerIsRunning}
           onClick={totalSeconds ? togglePlayPause : startTimer}
         />
       </div>
@@ -146,9 +135,9 @@ const Timer = () => {
   return (
     <div
       id="timer"
-      className={useAccessibleColors ? "accessible-colors" : null}
+      className={settings.useAccessibleColors ? "accessible-colors" : null}
     >
-      <Header />
+      <Header settings={settings} setSettings={setSettings} />
       {timerIsSet ? TimeDisplayView() : TimeInputView()}
     </div>
   )
