@@ -1,3 +1,7 @@
+import DownIcon from "../ui_icons/chevron-down.svg"
+import UpIcon from "../ui_icons/chevron-up.svg"
+import ColonIcon from "../ui_icons/colon.svg"
+
 export default function TimeInput({
   minutesInput,
   secondsInput,
@@ -52,17 +56,17 @@ export default function TimeInput({
             disabled={minutesInput === "90"}
             onClick={() => handleMinutesInput(parseInt(minutesInput) + 1)}
           >
-            <img src="/chevron-up.svg" alt="Add minute" />
+            <img src={UpIcon} alt="Add minute" />
           </button>
           <button
             disabled={minutesInput === "00"}
             onClick={() => handleMinutesInput(parseInt(minutesInput) - 1)}
           >
-            <img src="/chevron-down.svg" alt="Subtract minute" />
+            <img src={DownIcon} alt="Subtract minute" />
           </button>
         </div>
       </div>
-      <img id="time-divider" src="/colon.svg" alt="Colon" />
+      <img id="time-divider" src={ColonIcon} alt="Colon" />
       <div className="time-input-group">
         <input
           type="number"
@@ -74,13 +78,13 @@ export default function TimeInput({
             disabled={minutesInput === "90"}
             onClick={() => handleSecondsInput(parseInt(secondsInput) + 1)}
           >
-            <img src="/chevron-up.svg" alt="Add second" />
+            <img src={UpIcon} alt="Add second" />
           </button>
           <button
             disabled={minutesInput === "00" && secondsInput === "00"}
             onClick={() => handleSecondsInput(parseInt(secondsInput) - 1)}
           >
-            <img src="/chevron-down.svg" alt="Subtract second" />
+            <img src={DownIcon} alt="Subtract second" />
           </button>
         </div>
       </div>

@@ -1,4 +1,7 @@
 import { useState } from "react"
+import Logo from "../ui_icons/logo.svg"
+import CloseIcon from "../ui_icons/close.svg"
+import HelpIcon from "../ui_icons/help.svg"
 
 export default function Header() {
   const [showHelp, setShowHelp] = useState(false)
@@ -7,9 +10,9 @@ export default function Header() {
     <div id="modal-background" onClick={() => setShowHelp(false)}>
       <div id="modal" onClick={e => e.stopPropagation()}>
         <div id="modal-header">
-          <img id="logo" src="/logo.svg" alt="TED Logo" />
+          <img id="logo" src={Logo} alt="TED Logo" />
           <button id="close-modal-button" onClick={() => setShowHelp(false)}>
-            <img src="/close.svg" alt="Close" />
+            <img src={CloseIcon} alt="Close" />
           </button>
         </div>
         <p>
@@ -45,9 +48,9 @@ export default function Header() {
 
   return (
     <header>
-      <img id="logo" src="/logo.svg" alt="TED Logo" />
+      <img id="logo" src={Logo} alt="TED Logo" />
       <button id="help-button" onClick={() => setShowHelp(true)}>
-        <img src="/help.svg" alt="Help" />
+        <img src={HelpIcon} alt="Help" />
       </button>
       {showHelp ? <Help /> : null}
     </header>

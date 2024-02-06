@@ -194,6 +194,11 @@ header #help-button img {
   transition: all 0.2s ease;
 }
 
+.time-input-button-group button:disabled {
+  opacity: 0.1 !important;
+  cursor: not-allowed;
+}
+
 .time-input-button-group button:hover,
 .time-input-button-group button:focus {
   opacity: 1;
@@ -255,6 +260,11 @@ header #help-button img {
 
 button:active {
   transform: scale(0.98);
+}
+
+#play-pause-button:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
 }
 
 button img {
