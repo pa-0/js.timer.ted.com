@@ -25,13 +25,21 @@ body {
   height: 100vh;
   width: 100vw;
   max-height: 100vh;
-
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding: clamp(16px, 2vh, 96px) 4vw;
+  padding: clamp(16px, 3vh, 96px) 4vw;
   gap: 4vh;
+}
+
+@supports (-webkit-touch-callout: none) {
+  /* CSS specific to iOS devices */
+
+  #timer {
+    /* solve for mobile safari URL bar problem: https://allthingssmitty.com/2020/05/11/css-fix-for-100vh-in-mobile-webkit/ */
+    height: -webkit-fill-available;
+  }
 }
 
 #timer.accessible-colors {
@@ -47,7 +55,6 @@ header {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: clamp(12px, 1vw, 512px);
 }
 
 header #logo {
@@ -61,7 +68,7 @@ header h1 {
 
 #header-buttons {
   display: flex;
-  gap: 1vw;
+  gap: clamp(16px, 2vw, 64px);
   align-items: center;
   justify-content: center;
   margin-left: auto;
@@ -69,11 +76,11 @@ header h1 {
 
 #header-buttons button {
   margin-left: auto;
-  width: clamp(32px, 2vw, 96px);
-  height: clamp(32px, 2vw, 96px);
+  width: clamp(24px, 2vw, 96px);
+  height: clamp(24px, 2vw, 96px);
   background: none;
   border: none;
-  padding: none;
+  padding: 0;
   cursor: pointer;
   opacity: 0.64;
   transition: opacity 0.2s ease;
@@ -93,24 +100,55 @@ header h1 {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
+  /* height: -webkit-fill-available; */
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: clamp(16px, 2vh, 96px) 4vw;
+  padding: clamp(32px, 2vh, 96px) 4vw;
   background: rgba(0, 0, 0, 0.8);
   z-index: 10;
 }
 
 #modal {
+  position: relative;
   width: 100%;
   max-width: clamp(600px, 64vw, 1000px);
   max-height: 100%;
-  overflow-y: auto;
   background: var(--darkgrey);
-  border-radius: 1vw;
-  padding: clamp(16px, 2vh, 96px) clamp(16px, 4vw, 96px);
+  border-radius: 2vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  overflow: hidden;
+}
+
+#modal::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: clamp(16px, 3vh, 96px);
+  width: 100%;
+  background: linear-gradient(to top, transparent, var(--darkgrey));
+}
+
+#modal::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: clamp(16px, 3vh, 96px);
+  width: 100%;
+  background: linear-gradient(to bottom, transparent, var(--darkgrey));
+}
+
+#modal-content {
+  width: 100%;
+  padding: clamp(16px, 3vh, 96px) clamp(16px, 4vw, 96px);
+  overflow-y: auto;
 }
 
 #modal h2 {
@@ -121,7 +159,10 @@ header h1 {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin-bottom: 32px;
+  flex-shrink: 0;
+  margin-bottom: 3vw;
+  width: 100%;
+  overflow-y: auto;
 }
 
 #close-modal-button {
@@ -142,7 +183,7 @@ header h1 {
 #modal h4 {
   font-size: clamp(16px, 1.5vw, 48px);
   font-weight: 700;
-  margin: 24px 0 8px 0;
+  margin: 2vw 0 1vw 0;
 }
 
 #modal p {
@@ -188,6 +229,7 @@ header h1 {
   font-size: 20vw;
   text-align: left;
   outline: none;
+  padding: 0;
 }
 
 .time-input-button-group {
@@ -233,7 +275,7 @@ header h1 {
 
 #time-display {
   text-align: center;
-  font-size: clamp(16px, 30vw, 40vh);
+  font-size: clamp(16px, 30vw, 32vh);
   margin: 0;
   flex-grow: 1;
   flex-shrink: 1;
@@ -354,9 +396,10 @@ header h1 {
 
 #back-button,
 #settings-button,
+#help-button,
 #play-pause-button {
-  height: clamp(80px, 8vw, 256px);
-  width: clamp(80px, 8vw, 256px);
+  height: clamp(64px, 8vw, 256px);
+  width: clamp(64px, 8vw, 256px);
   border-radius: 50%;
   display: flex;
   justify-content: center;

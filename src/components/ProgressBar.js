@@ -6,7 +6,16 @@ export default function ProgressBar({
 }) {
   const overtime = remainingSeconds < 0
   return (
-    <div id="progress-bar" style={overtime ? { height: "8vh" } : null}>
+    <div
+      id="progress-bar"
+      style={
+        overtime
+          ? { height: "8vh" }
+          : {
+              background: `color-mix(in srgb, ${timeDisplayColor} 30%, transparent)`
+            }
+      }
+    >
       {remainingSeconds < 0 && (
         <div
           id="overtime-warning"

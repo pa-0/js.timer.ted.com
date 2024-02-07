@@ -9,38 +9,40 @@ export default function Settings({ settings, setSettings }) {
   const SettingsModal = () => (
     <div id="modal-background" onClick={() => setShowSettingsModal(false)}>
       <div id="modal" onClick={e => e.stopPropagation()}>
-        <div id="modal-header">
-          <h2>Settings</h2>
-          <button
-            id="close-modal-button"
-            onClick={() => setShowSettingsModal(false)}
-          >
-            <img src={CloseIcon} alt="Close" />
-          </button>
-        </div>
-        <Toggle
-          label="Always show seconds"
-          caption="Turn this on to always display both minutes and seconds remaining.
+        <div id="modal-content">
+          <div id="modal-header">
+            <h2>Settings</h2>
+            <button
+              id="close-modal-button"
+              onClick={() => setShowSettingsModal(false)}
+            >
+              <img src={CloseIcon} alt="Close" />
+            </button>
+          </div>
+          <Toggle
+            label="Always show seconds"
+            caption="Turn this on to always display both minutes and seconds remaining.
           We'll always show remaining seconds in the final minute."
-          isOn={settings.alwaysShowSeconds}
-          onClick={() =>
-            setSettings({
-              ...settings,
-              alwaysShowSeconds: !settings.alwaysShowSeconds
-            })
-          }
-        />
-        <Toggle
-          label="Use accessible colors"
-          caption="Turn this on to use alternate shades of red, yellow and green for better accessibility."
-          isOn={settings.useAccessibleColors}
-          onClick={() =>
-            setSettings({
-              ...settings,
-              useAccessibleColors: !settings.useAccessibleColors
-            })
-          }
-        />
+            isOn={settings.alwaysShowSeconds}
+            onClick={() =>
+              setSettings({
+                ...settings,
+                alwaysShowSeconds: !settings.alwaysShowSeconds
+              })
+            }
+          />
+          <Toggle
+            label="Use accessible colors"
+            caption="Turn this on to use alternate shades of red, yellow and green for better accessibility."
+            isOn={settings.useAccessibleColors}
+            onClick={() =>
+              setSettings({
+                ...settings,
+                useAccessibleColors: !settings.useAccessibleColors
+              })
+            }
+          />
+        </div>
       </div>
     </div>
   )

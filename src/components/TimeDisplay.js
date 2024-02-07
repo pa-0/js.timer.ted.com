@@ -25,7 +25,8 @@ export default function TimeDisplay({
     minutes +
     (alwaysShowSeconds || remainingSeconds < 60 ? ":" + seconds : "")
 
-  const fontSize = hours ? "clamp(16px, 22vw, 40vh)" : "clamp(16px, 30vw, 40vh)"
+  // scale down font size if hours need to be displayed
+  const fontSize = hours ? "clamp(16px, 22vw, 40vh)" : null
 
   return (
     <h2 id="time-display" style={{ fontSize, color: timeDisplayColor }}>
