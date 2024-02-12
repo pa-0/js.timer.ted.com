@@ -7,9 +7,8 @@ import Header from "./components/Header"
 import ProgressBar from "./components/ProgressBar"
 import PlayPauseButton from "./components/PlayPauseButton"
 import BackButton from "./components/BackButton"
-import { colors } from "./helpers/colors"
-import "./index.css"
 import { DEFAULT_SETTINGS } from "./helpers/constants"
+import "./index.css"
 
 const Timer = () => {
   // interval (window object): stores the instance of window.setInterval used
@@ -68,17 +67,6 @@ const Timer = () => {
     setSecondsInput("00")
   }
 
-  // timeDisplayColor is a value used by child components to
-  // alert the speaker as time runs out. At one minute left,
-  // the display turn from green to yellow. When time is up,
-  // the display turns red indefinitely.
-  const timeDisplayColor =
-    remainingSeconds < 0
-      ? colors.alert
-      : remainingSeconds < 60
-      ? colors.warning
-      : colors.success
-
   // timerIsRunning is a helpful boolean to represent whether the clock
   // is currently running (preventing the need to pass the whole
   // interval object around the app)
@@ -89,18 +77,25 @@ const Timer = () => {
   // that the timer is running or paused.
   const timerIsSet = !!totalSeconds
 
+  // timerClassName defines the CSS class applied to the timer app,
+  // controlling the color of the countdown clock and progress bar.
+  const timerClassName =
+    remainingSeconds < 0
+      ? "over-time"
+      : remainingSeconds < 60
+      ? "final-minute"
+      : "default"
+
   // show this view when the timer is set, meaning it's either running or paused
   const TimeDisplayView = () => (
     <>
       <TimeDisplay
         remainingSeconds={remainingSeconds}
-        timeDisplayColor={timeDisplayColor}
         alwaysShowSeconds={settings.alwaysShowSeconds}
       />
       <ProgressBar
         remainingSeconds={remainingSeconds}
         totalSeconds={totalSeconds}
-        timeDisplayColor={timeDisplayColor}
         timerIsRunning={timerIsRunning}
       />
       <div id="buttons-container">
@@ -135,7 +130,9 @@ const Timer = () => {
   return (
     <div
       id="timer"
-      className={settings.useAccessibleColors ? "accessible-colors" : null}
+      className={`${timerClassName}${
+        settings.useAccessibleColors ? " accessible-colors" : ""
+      }`}
     >
       <Header settings={settings} setSettings={setSettings} />
       {timerIsSet ? TimeDisplayView() : TimeInputView()}

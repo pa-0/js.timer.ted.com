@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { colors } from "../helpers/colors"
 import SettingsIcon from "../ui_icons/settings.svg"
 import CloseIcon from "../ui_icons/close.svg"
 
@@ -49,11 +48,7 @@ export default function Settings({ settings, setSettings }) {
 
   const Toggle = ({ label, caption, isOn, onClick }) => (
     <div className="toggle-wrapper">
-      <div
-        className="toggle"
-        onClick={onClick}
-        style={isOn ? { background: colors.success } : null}
-      >
+      <div className={`toggle ${isOn ? "on" : "off"}`} onClick={onClick}>
         <div className={`toggle-handle ${isOn ? "on" : "off"}`} />
       </div>
       <div>
