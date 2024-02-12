@@ -38,7 +38,8 @@ export default function Help() {
           </p>
           <p>
             If you want to use the Timer like an app, tap on the share icon
-            (iOS) or menu button (Android) and select “Add to Home Screen.”
+            (iOS) or menu button (Android) and select “Add to Home Screen.” This
+            will also allow you to use it without an internet connection!
           </p>
           <h4>Looking for an old version?</h4>
           <p>
