@@ -1,4 +1,3 @@
-import { colors } from "../helpers/colors"
 import PauseIcon from "../ui_icons/pause.svg"
 import PlayIcon from "../ui_icons/play.svg"
 
@@ -8,7 +7,7 @@ export default function PlayPauseButton({ disabled, timerIsRunning, onClick }) {
       id="play-pause-button"
       onClick={onClick}
       disabled={disabled}
-      style={{ background: timerIsRunning ? colors.darkgrey : colors.success }}
+      className={timerIsRunning ? "pause" : "play"}
     >
       <img
         src={timerIsRunning ? PauseIcon : PlayIcon}

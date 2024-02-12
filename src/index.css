@@ -1,7 +1,7 @@
 body {
-  --alert: #eb0028;
-  --warning: #febf00;
-  --success: #26a65b;
+  --red: #eb0028;
+  --yellow: #febf00;
+  --green: #26a65b;
   --white: #ffffff;
   --lightgrey: #707070;
   --darkgrey: #252323;
@@ -49,9 +49,33 @@ body {
 #timer.accessible-colors {
   /* Taken from the following article: https://uxdesign.cc/beautiful-accessible-traffic-light-colors-b2b14a102a38 */
   /* These colors can be turned on using the "Use accessible colors" toggle in Settings */
-  --alert: #9f1f31;
-  --warning: #f5cd54;
-  --success: #829035;
+  --red: #9f1f31;
+  --yellow: #f5cd54;
+  --green: #829035;
+}
+
+#timer.final-minute #progress-bar {
+  background: color-mix(in srgb, var(--yellow) 30%, transparent);
+}
+
+#timer.final-minute #progress-bar-elapsed {
+  background: var(--yellow);
+}
+
+#timer.final-minute #time-display {
+  color: var(--yellow);
+}
+
+#timer.over-time #progress-bar {
+  background: color-mix(in srgb, var(--red) 30%, transparent);
+}
+
+#timer.over-time #progress-bar-elapsed {
+  background: var(--red);
+}
+
+#timer.over-time #time-display {
+  color: var(--red);
 }
 
 header {
@@ -309,13 +333,20 @@ header h1 {
   position: relative;
   height: clamp(16px, 2vw, 48px);
   width: clamp(32px, 4vw, 96px);
-  background: var(--lightgrey);
   border-radius: clamp(16px, 2vw, 48px);
   display: flex;
   align-items: center;
   cursor: pointer;
   margin-top: clamp(8px, 1vw, 24px);
   flex-shrink: 0;
+}
+
+.toggle.on {
+  background: var(--green);
+}
+
+.toggle.off {
+  background: var(--lightgrey);
 }
 
 .toggle-handle {
@@ -423,6 +454,14 @@ button:active {
 #play-pause-button:disabled {
   opacity: 0.2;
   cursor: not-allowed;
+}
+
+#play-pause-button.play {
+  background: var(--green);
+}
+
+#play-pause-button.pause {
+  background: var(--darkgrey);
 }
 
 button img {

@@ -1,21 +1,11 @@
 export default function ProgressBar({
   timerIsRunning,
   totalSeconds,
-  remainingSeconds,
-  timeDisplayColor
+  remainingSeconds
 }) {
   const overtime = remainingSeconds < 0
   return (
-    <div
-      id="progress-bar"
-      style={
-        overtime
-          ? { height: "8vh" }
-          : {
-              background: `color-mix(in srgb, ${timeDisplayColor} 30%, transparent)`
-            }
-      }
-    >
+    <div id="progress-bar" style={overtime ? { height: "8vh" } : null}>
       {remainingSeconds < 0 && (
         <div
           id="overtime-warning"
@@ -27,8 +17,7 @@ export default function ProgressBar({
       <div
         id="progress-bar-elapsed"
         style={{
-          width: `${((totalSeconds - remainingSeconds) * 100) / totalSeconds}%`,
-          background: timeDisplayColor
+          width: `${((totalSeconds - remainingSeconds) * 100) / totalSeconds}%`
         }}
       />
     </div>

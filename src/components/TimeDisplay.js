@@ -1,8 +1,4 @@
-export default function TimeDisplay({
-  remainingSeconds,
-  timeDisplayColor,
-  alwaysShowSeconds
-}) {
+export default function TimeDisplay({ remainingSeconds, alwaysShowSeconds }) {
   const hours =
     remainingSeconds > 0 ? Math.floor(remainingSeconds / 3600) : null
   if (hours) {
@@ -29,7 +25,7 @@ export default function TimeDisplay({
   const fontSize = hours ? "clamp(16px, 22vw, 40vh)" : null
 
   return (
-    <h2 id="time-display" style={{ fontSize, color: timeDisplayColor }}>
+    <h2 id="time-display" style={{ fontSize }}>
       {formatted}
     </h2>
   )
