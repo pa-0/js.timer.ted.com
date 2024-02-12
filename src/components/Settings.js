@@ -54,7 +54,11 @@ export default function Settings({ settings, setSettings, modal, setModal }) {
 
   return (
     <div id="settings">
-      <button id="settings-button" onClick={() => setModal("settings")}>
+      <button
+        id="settings-button"
+        onClick={() => setModal("settings")}
+        data-mixpanel-component="settings-button"
+      >
         <img src={SettingsIcon} alt="Settings" />
       </button>
       {modal === "settings" ? <SettingsModal /> : null}

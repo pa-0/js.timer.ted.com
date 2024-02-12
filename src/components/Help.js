@@ -60,7 +60,11 @@ export default function Help({ modal, setModal }) {
 
   return (
     <div id="help">
-      <button id="help-button" onClick={() => setModal("help")}>
+      <button
+        id="help-button"
+        onClick={() => setModal("help")}
+        data-mixpanel-component="help-button"
+      >
         <img src={HelpIcon} alt="Settings" />
       </button>
       {modal === "help" ? <HelpModal /> : null}

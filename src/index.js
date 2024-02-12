@@ -8,6 +8,9 @@ import ProgressBar from "./components/ProgressBar"
 import Footer from "./components/Footer"
 import { DEBOUNCE_TIMER_DURATION, DEFAULT_SETTINGS } from "./helpers/constants"
 import "./index.css"
+import { initMixpanel } from "./helpers/mixpanel"
+
+initMixpanel()
 
 const Timer = () => {
   // interval (window object): stores the instance of window.setInterval used
