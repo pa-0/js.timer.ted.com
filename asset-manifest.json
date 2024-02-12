@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/timer.ted.com/static/css/main.78d96186.css",
-    "main.js": "/timer.ted.com/static/js/main.f9ed1d93.js",
+    "main.js": "/timer.ted.com/static/js/main.491a3029.js",
     "service-worker.js": "/timer.ted.com/service-worker.js",
     "static/media/logo.svg": "/timer.ted.com/static/media/logo.328bdfa726b1b40767ee6957c039facc.svg",
     "index.html": "/timer.ted.com/index.html",
@@ -15,10 +15,10 @@
     "static/media/chevron-up.svg": "/timer.ted.com/static/media/chevron-up.3192e481f01cb192d2dfef2420232167.svg",
     "static/media/colon.svg": "/timer.ted.com/static/media/colon.e15bf5bc0eb2878302756cea0fd895c4.svg",
     "main.78d96186.css.map": "/timer.ted.com/static/css/main.78d96186.css.map",
-    "main.f9ed1d93.js.map": "/timer.ted.com/static/js/main.f9ed1d93.js.map"
+    "main.491a3029.js.map": "/timer.ted.com/static/js/main.491a3029.js.map"
   },
   "entrypoints": [
     "static/css/main.78d96186.css",
-    "static/js/main.f9ed1d93.js"
+    "static/js/main.491a3029.js"
   ]
 }
