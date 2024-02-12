@@ -5,7 +5,7 @@ body {
   --white: #ffffff;
   --lightgrey: #707070;
   --darkgrey: #252323;
-  --black: #121212;
+  --black: #000000;
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -54,6 +54,7 @@ body {
   --green: #829035;
 }
 
+/* .final-minute class turns primary elements yellow */
 #timer.final-minute #progress-bar {
   background: color-mix(in srgb, var(--yellow) 30%, transparent);
 }
@@ -66,6 +67,7 @@ body {
   color: var(--yellow);
 }
 
+/* .over-time class turns primary elements red */
 #timer.over-time #progress-bar {
   background: color-mix(in srgb, var(--red) 30%, transparent);
 }
@@ -83,15 +85,18 @@ header {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  height: clamp(48px, 4vw, 128px);
+  opacity: 1;
+  transition: all ease-in-out 0.5s;
+}
+
+#timer.hide-controls header {
+  height: 0;
+  opacity: 0;
 }
 
 header #logo {
   height: clamp(48px, 4vw, 128px);
-}
-
-header h1 {
-  font-size: clamp(20px, 3vw, 64px);
-  margin: 0;
 }
 
 #header-buttons {
@@ -142,7 +147,7 @@ header h1 {
 #modal {
   position: relative;
   width: 100%;
-  max-width: clamp(600px, 64vw, 1000px);
+  max-width: clamp(600px, 64vw, 1800px);
   max-height: 100%;
   background: var(--darkgrey);
   border-radius: 2vw;
@@ -181,6 +186,8 @@ header h1 {
 
 #modal h2 {
   margin: 0;
+  font-size: clamp(32px, 2vw, 96px);
+  font-weight: 700;
 }
 
 #modal-header {
@@ -305,14 +312,14 @@ header h1 {
 
 #time-display {
   text-align: center;
-  font-size: clamp(16px, 30vw, 32vh);
+  font-size: clamp(16px, 30vw, min(50vh, 30vw));
   margin: 0;
   flex-grow: 1;
   flex-shrink: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: var(--white);
+  color: var(--green);
 }
 
 #always-show-seconds-input {
@@ -386,7 +393,7 @@ header h1 {
   height: 4vh;
   border-radius: 32px;
   flex-shrink: 0;
-  background: var(--darkgrey);
+  background: color-mix(in srgb, var(--green) 30%, transparent);
   overflow: hidden;
 }
 
@@ -395,6 +402,7 @@ header h1 {
   border-radius: 32px;
   transition: width 1s linear;
   max-width: 100%;
+  background: var(--green);
 }
 
 #overtime-warning {
@@ -426,17 +434,25 @@ header h1 {
   }
 }
 
-#buttons-container {
+footer {
   display: flex;
-  gap: 32px;
+  gap: 2vw;
+  height: clamp(64px, 8vw, 256px);
+  opacity: 1;
+  transition: all ease-in-out 0.5s;
+}
+
+#timer.hide-controls footer {
+  height: 0;
+  opacity: 0;
 }
 
 #back-button,
 #settings-button,
 #help-button,
 #play-pause-button {
-  height: clamp(64px, 8vw, 256px);
-  width: clamp(64px, 8vw, 256px);
+  height: clamp(64px, 6vw, 192px);
+  width: clamp(64px, 6vw, 192px);
   border-radius: 50%;
   display: flex;
   justify-content: center;

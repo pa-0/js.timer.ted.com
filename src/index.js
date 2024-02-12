@@ -1,13 +1,12 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import ReactDOM from "react-dom/client"
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration"
 import TimeInput from "./components/TimeInput"
 import TimeDisplay from "./components/TimeDisplay"
 import Header from "./components/Header"
 import ProgressBar from "./components/ProgressBar"
-import PlayPauseButton from "./components/PlayPauseButton"
-import BackButton from "./components/BackButton"
-import { DEFAULT_SETTINGS } from "./helpers/constants"
+import Footer from "./components/Footer"
+import { DEBOUNCE_TIMER_DURATION, DEFAULT_SETTINGS } from "./helpers/constants"
 import "./index.css"
 
 const Timer = () => {
@@ -15,9 +14,9 @@ const Timer = () => {
   // to decrement remaining time every second
   const [interval, setInterval] = useState()
   // totalSeconds (integer): the original value of the timer
-  const [totalSeconds, setTotalSeconds] = useState()
+  const [totalSeconds, setTotalSeconds] = useState(1000)
   // remainingSeconds (integer): the amount of time left of the original timer
-  const [remainingSeconds, setRemainingSeconds] = useState()
+  const [remainingSeconds, setRemainingSeconds] = useState(800)
   // minutesInput (string): the user input value for number of minutes
   const [minutesInput, setMinutesInput] = useState("18")
   // secondsInput (string): the user input value for number of seconds
@@ -25,6 +24,64 @@ const Timer = () => {
   // NOTE: input values are string not ints. This helps with formatting,
   // especially with leading 0s.
   const [settings, setSettings] = useState(DEFAULT_SETTINGS)
+  // hideControls (boolean): when true, the header and footer should animate off
+  // the screen to make additional room for the countdown timer. Set by a debounce
+  // timer when the TimeDisplayView is on.
+  const [hideControls, setHideControls] = useState(false)
+  // modal (boolean): controls whether any modal is displayed over the main view.
+  const [modal, setModal] = useState(false)
+
+  useEffect(() => {
+    /*
+      This useEffect handles the logic to dynamically hide
+      the header and footer during countdown if the mouse
+      hasn't moved for a bit. It is NOT related to the
+      main timer.
+    */
+
+    function setDebounceTimer() {
+      // initialize a timeout to hide controls
+      // if time runs out without a mouse movement
+      window.debounce_timer = window.setTimeout(
+        () => setHideControls(true),
+        DEBOUNCE_TIMER_DURATION
+      )
+    }
+
+    function clearDebounceTimer() {
+      // clear any existing timeout that may have been running
+      if (window.debounce_timer) {
+        window.clearTimeout(window.debounce_timer)
+      }
+    }
+
+    function handleMouseMove() {
+      // on mouse move, show the controls,
+      setHideControls(false)
+      // clear any existing timeout,
+      clearDebounceTimer()
+      // and set a new one
+      setDebounceTimer()
+    }
+
+    if (interval) {
+      // if the main timer is running, set the timeout to hide controls
+      setDebounceTimer()
+      // create a mousemove event listener to reset the timeout
+      window.addEventListener("mousemove", handleMouseMove)
+    } else {
+      // if the main timer is NOt running, clear any existing timeouts
+      clearDebounceTimer()
+    }
+
+    // the cleanup function will handle closing the mousemove event listener
+    return () => window.removeEventListener("mousemove", handleMouseMove)
+  }, [interval])
+
+  /*
+  START: MAIN TIMER FUNCTIONS
+  The following functions are used to control the main timer.
+  */
 
   function initializeWindowInterval() {
     // create an interval that decrements remainingSeconds every 1000ms
@@ -67,6 +124,10 @@ const Timer = () => {
     setSecondsInput("00")
   }
 
+  /*
+  END: MAIN TIMER FUNCTIONS
+  */
+
   // timerIsRunning is a helpful boolean to represent whether the clock
   // is currently running (preventing the need to pass the whole
   // interval object around the app)
@@ -78,17 +139,31 @@ const Timer = () => {
   const timerIsSet = !!totalSeconds
 
   // timerClassName defines the CSS class applied to the timer app,
-  // controlling the color of the countdown clock and progress bar.
+  // controlling the color of the countdown clock and progress bar,
+  // as well as the accessible colors setting and hide-controls debounce
   const timerClassName =
-    remainingSeconds < 0
+    (remainingSeconds < 0
       ? "over-time"
       : remainingSeconds < 60
       ? "final-minute"
-      : "default"
+      : "default") +
+    (settings.useAccessibleColors ? " accessible-colors" : "") +
+    (hideControls && !modal ? " hide-controls" : "")
+
+  /*
+  START: VIEW COMPONENTS
+  These are the meta components that assemble full views
+  */
 
   // show this view when the timer is set, meaning it's either running or paused
   const TimeDisplayView = () => (
     <>
+      <Header
+        settings={settings}
+        setSettings={setSettings}
+        modal={modal}
+        setModal={setModal}
+      />
       <TimeDisplay
         remainingSeconds={remainingSeconds}
         alwaysShowSeconds={settings.alwaysShowSeconds}
@@ -98,43 +173,46 @@ const Timer = () => {
         totalSeconds={totalSeconds}
         timerIsRunning={timerIsRunning}
       />
-      <div id="buttons-container">
-        <BackButton timerIsRunning={timerIsRunning} resetTimer={resetTimer} />
-        <PlayPauseButton
-          timerIsRunning={timerIsRunning}
-          onClick={totalSeconds ? togglePlayPause : startTimer}
-        />
-      </div>
+      <Footer
+        timerIsRunning={timerIsRunning}
+        resetTimer={resetTimer}
+        timerIsSet={timerIsSet}
+        togglePlayPause={togglePlayPause}
+        startTimer={startTimer}
+      />
     </>
   )
 
   // show this view when the user is setting the timer
   const TimeInputView = () => (
     <>
+      <Header
+        settings={settings}
+        setSettings={setSettings}
+        modal={modal}
+        setModal={setModal}
+      />
       <TimeInput
         minutesInput={minutesInput}
         secondsInput={secondsInput}
         setMinutesInput={setMinutesInput}
         setSecondsInput={setSecondsInput}
       />
-      <div id="buttons-container">
-        <PlayPauseButton
-          disabled={minutesInput === "00" && secondsInput === "00"}
-          timerIsRunning={timerIsRunning}
-          onClick={totalSeconds ? togglePlayPause : startTimer}
-        />
-      </div>
+      <Footer
+        timerIsRunning={timerIsRunning}
+        resetTimer={resetTimer}
+        timerIsSet={timerIsSet}
+        togglePlayPause={togglePlayPause}
+        startTimer={startTimer}
+      />
     </>
   )
+  /*
+  END: VIEW COMPONENTS
+  */
 
   return (
-    <div
-      id="timer"
-      className={`${timerClassName}${
-        settings.useAccessibleColors ? " accessible-colors" : ""
-      }`}
-    >
-      <Header settings={settings} setSettings={setSettings} />
+    <div id="timer" className={timerClassName}>
       {timerIsSet ? TimeDisplayView() : TimeInputView()}
     </div>
   )
