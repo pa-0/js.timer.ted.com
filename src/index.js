@@ -17,9 +17,9 @@ const Timer = () => {
   // to decrement remaining time every second
   const [interval, setInterval] = useState()
   // totalSeconds (integer): the original value of the timer
-  const [totalSeconds, setTotalSeconds] = useState(1000)
+  const [totalSeconds, setTotalSeconds] = useState()
   // remainingSeconds (integer): the amount of time left of the original timer
-  const [remainingSeconds, setRemainingSeconds] = useState(800)
+  const [remainingSeconds, setRemainingSeconds] = useState()
   // minutesInput (string): the user input value for number of minutes
   const [minutesInput, setMinutesInput] = useState("18")
   // secondsInput (string): the user input value for number of seconds
