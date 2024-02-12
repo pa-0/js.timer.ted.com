@@ -1,21 +1,15 @@
-import { useState } from "react"
 import Logo from "../ui_icons/logo.svg"
 import CloseIcon from "../ui_icons/close.svg"
 import HelpIcon from "../ui_icons/help.svg"
 
-export default function Help() {
-  const [showHelpModal, setShowHelpModal] = useState(false)
-
+export default function Help({ modal, setModal }) {
   const HelpModal = () => (
-    <div id="modal-background" onClick={() => setShowHelpModal(false)}>
+    <div id="modal-background" onClick={() => setModal(false)}>
       <div id="modal" onClick={e => e.stopPropagation()}>
         <div id="modal-content">
           <div id="modal-header">
             <img id="logo" src={Logo} alt="TED Logo" />
-            <button
-              id="close-modal-button"
-              onClick={() => setShowHelpModal(false)}
-            >
+            <button id="close-modal-button" onClick={() => setModal(false)}>
               <img src={CloseIcon} alt="Close" />
             </button>
           </div>
@@ -66,10 +60,10 @@ export default function Help() {
 
   return (
     <div id="help">
-      <button id="help-button" onClick={() => setShowHelpModal(true)}>
+      <button id="help-button" onClick={() => setModal("help")}>
         <img src={HelpIcon} alt="Settings" />
       </button>
-      {showHelpModal ? <HelpModal /> : null}
+      {modal === "help" ? <HelpModal /> : null}
     </div>
   )
 }

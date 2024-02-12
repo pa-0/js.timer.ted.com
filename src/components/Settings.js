@@ -1,20 +1,14 @@
-import { useState } from "react"
 import SettingsIcon from "../ui_icons/settings.svg"
 import CloseIcon from "../ui_icons/close.svg"
 
-export default function Settings({ settings, setSettings }) {
-  const [showSettingsModal, setShowSettingsModal] = useState(false)
-
+export default function Settings({ settings, setSettings, modal, setModal }) {
   const SettingsModal = () => (
-    <div id="modal-background" onClick={() => setShowSettingsModal(false)}>
+    <div id="modal-background" onClick={() => setModal(false)}>
       <div id="modal" onClick={e => e.stopPropagation()}>
         <div id="modal-content">
           <div id="modal-header">
             <h2>Settings</h2>
-            <button
-              id="close-modal-button"
-              onClick={() => setShowSettingsModal(false)}
-            >
+            <button id="close-modal-button" onClick={() => setModal(false)}>
               <img src={CloseIcon} alt="Close" />
             </button>
           </div>
@@ -60,10 +54,10 @@ export default function Settings({ settings, setSettings }) {
 
   return (
     <div id="settings">
-      <button id="settings-button" onClick={() => setShowSettingsModal(true)}>
+      <button id="settings-button" onClick={() => setModal("settings")}>
         <img src={SettingsIcon} alt="Settings" />
       </button>
-      {showSettingsModal ? <SettingsModal /> : null}
+      {modal === "settings" ? <SettingsModal /> : null}
     </div>
   )
 }
