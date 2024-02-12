@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/timer.ted.com/static/css/main.e0f76f96.css",
-    "main.js": "/timer.ted.com/static/js/main.2dc54da2.js",
+    "main.css": "/timer.ted.com/static/css/main.fdccddf0.css",
+    "main.js": "/timer.ted.com/static/js/main.0be36ab0.js",
     "service-worker.js": "/timer.ted.com/service-worker.js",
     "static/media/logo.svg": "/timer.ted.com/static/media/logo.328bdfa726b1b40767ee6957c039facc.svg",
     "index.html": "/timer.ted.com/index.html",
@@ -14,11 +14,11 @@
     "static/media/chevron-down.svg": "/timer.ted.com/static/media/chevron-down.c4bb030dee6e20b7d07936988c27ecbf.svg",
     "static/media/chevron-up.svg": "/timer.ted.com/static/media/chevron-up.3192e481f01cb192d2dfef2420232167.svg",
     "static/media/colon.svg": "/timer.ted.com/static/media/colon.e15bf5bc0eb2878302756cea0fd895c4.svg",
-    "main.e0f76f96.css.map": "/timer.ted.com/static/css/main.e0f76f96.css.map",
-    "main.2dc54da2.js.map": "/timer.ted.com/static/js/main.2dc54da2.js.map"
+    "main.fdccddf0.css.map": "/timer.ted.com/static/css/main.fdccddf0.css.map",
+    "main.0be36ab0.js.map": "/timer.ted.com/static/js/main.0be36ab0.js.map"
   },
   "entrypoints": [
-    "static/css/main.e0f76f96.css",
-    "static/js/main.2dc54da2.js"
+    "static/css/main.fdccddf0.css",
+    "static/js/main.0be36ab0.js"
   ]
 }
