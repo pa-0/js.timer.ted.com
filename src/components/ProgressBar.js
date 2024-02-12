@@ -3,9 +3,8 @@ export default function ProgressBar({
   totalSeconds,
   remainingSeconds
 }) {
-  const overtime = remainingSeconds < 0
   return (
-    <div id="progress-bar" style={overtime ? { height: "8vh" } : null}>
+    <div id="progress-bar">
       {remainingSeconds < 0 && (
         <div
           id="overtime-warning"
